@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SISO Agent Stack 0.1.0 — implementation checkpoint</title></head>
+<body>
+  <main>
+    <h1>SISO Agent Stack 0.1.0 — implementation checkpoint</h1>
+    <p>Recorded 2026-08-01 for the first public portable distribution.</p>
+    <table>
+      <thead><tr><th>Gate</th><th>Score</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td>Plan and boundary</td><td>94/100</td><td>Allowlisted public projection; private state and live homes excluded.</td></tr>
+        <tr><td>Implementation</td><td>96/100</td><td>Ten exact component pins; host-native profiles, skills, agents, hooks, shims, receipts, and doctor.</td></tr>
+        <tr><td>Hooks verification</td><td>97/100</td><td>Independent adversarial review; 21 tests and repository verification passed.</td></tr>
+        <tr><td>Stack verification</td><td>98/100</td><td>Independent repair-cycle review; 8 tests, clean public-source install, idempotence, privacy scan, and doctor passed.</td></tr>
+      </tbody>
+    </table>
+    <h2>Verified release behavior</h2>
+    <ul>
+      <li>A clean required-only install cloned six public repositories and passed doctor.</li>
+      <li>A full non-external install pinned nine repositories, installed 32 skills and 14 command shims, and passed doctor.</li>
+      <li>Claude Code Markdown agents and Codex TOML agents use their host-native formats.</li>
+      <li>Dirty components, incomplete receipts, altered payloads, stale hook versions, suspected secrets, and unexpected binary files fail verification.</li>
+    </ul>
+    <h2>Boundary</h2>
+    <p>Credentials, private topology, personal memory, prompts, responses, transcripts, databases, telemetry, logs, caches, generated state, client source, and private repositories are not part of this distribution.</p>
+  </main>
+</body>
+</html>
