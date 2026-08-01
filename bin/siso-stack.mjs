@@ -221,6 +221,11 @@ function installCommands(components) {
   return count;
 }
 
+function installDistributionCommand() {
+  installShim('siso-stack', join(distributionRoot, 'bin', 'siso-stack.mjs'));
+  return 1;
+}
+
 function replaceManagedBlock(path, block) {
   const begin = '<!-- BEGIN SISO AGENT STACK -->';
   const end = '<!-- END SISO AGENT STACK -->';
@@ -257,7 +262,7 @@ function install() {
   installProfiles();
   const agentCount = installAgents();
   const skillCount = installSkills();
-  const commandCount = installCommands(components);
+  const commandCount = installCommands(components) + installDistributionCommand();
   installHooks();
   const receipt = {
     schema_version: 1,
@@ -385,6 +390,12 @@ function doctor() {
       commandCount += 1;
     }
   }
+  const distributionExecutable = join(distributionRoot, 'bin', 'siso-stack.mjs');
+  const distributionShim = join(binRoot, 'siso-stack');
+  if (!existsSync(distributionShim) || readFileSync(distributionShim, 'utf8') !== shimContent(distributionExecutable)) {
+    failures.push(`missing or altered distribution command shim: ${distributionShim}`);
+  }
+  commandCount += 1;
   if (receipt && receipt.command_count !== commandCount) failures.push(`receipt command count ${receipt.command_count} does not match ${commandCount}`);
   if (receipt && receipt.agent_count !== agentNames.length) failures.push(`receipt agent count ${receipt.agent_count} does not match ${agentNames.length}`);
   const hooks = manifest.components.find((component) => component.id === 'hooks');

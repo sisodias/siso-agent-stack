@@ -18,8 +18,15 @@ test('clean install is backup-stable and doctor rejects receipt omission and dir
   assert.equal(run(home, 'install').status, 0);
   assert.equal(run(home, 'install').status, 0);
   assert.equal(run(home, 'doctor').status, 0);
+  const distributionShim = join(home, '.local', 'bin', 'siso-stack');
+  const originalDistributionShim = readFileSync(distributionShim, 'utf8');
+  assert.match(originalDistributionShim, /managed by siso-agent-stack/);
   assert.equal(readdirSync(join(home, '.claude')).filter((name) => name.includes('.siso-backup-')).length, 0);
   assert.equal(readdirSync(join(home, '.codex')).filter((name) => name.includes('.siso-backup-')).length, 0);
+
+  writeFileSync(distributionShim, '#!/bin/sh\nexit 0\n');
+  assert.notEqual(run(home, 'doctor').status, 0);
+  writeFileSync(distributionShim, originalDistributionShim);
 
   const receiptPath = join(home, '.siso', 'agent-stack', 'install-receipt.json');
   const originalReceipt = readFileSync(receiptPath, 'utf8');

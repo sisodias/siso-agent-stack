@@ -4,6 +4,8 @@ One version-pinned distribution for giving another person the reusable SISO Clau
 
 This repository is intentionally an umbrella installer rather than a duplicated monorepo. Each component keeps its own GitHub identity, license, release cadence, and Great Library Work. `stack.manifest.json` pins the exact composition.
 
+**Ecosystem map:** [SISO Agent Stack in the Great Library](https://great-library-of-siso.vercel.app/works/siso-agent-stack-distribution/) · **Machine contract:** [`stack.manifest.json`](stack.manifest.json) · **Contributing:** [`CONTRIBUTING.md`](CONTRIBUTING.md)
+
 ## Install
 
 Prerequisites: Git and Node.js 20 or newer. Python-backed component commands need Python 3. Herdr can be installed separately from its pinned source or with its official installer.
@@ -12,8 +14,10 @@ Prerequisites: Git and Node.js 20 or newer. Python-backed component commands nee
 git clone https://github.com/sisodias/siso-agent-stack.git
 cd siso-agent-stack
 ./install.sh
-node bin/siso-stack.mjs doctor
+siso-stack doctor
 ```
+
+If `~/.local/bin` is not already on your `PATH`, either add it or run `node bin/siso-stack.mjs doctor` from the cloned distribution.
 
 The installer:
 
@@ -23,6 +27,7 @@ The installer:
 - adds marker-managed global Claude and Codex profile blocks while preserving unrelated instructions;
 - installs the SISO Hooks package into both host configurations;
 - creates command shims under `~/.local/bin/`;
+- installs the `siso-stack` command for later planning, verification, and updates;
 - writes a machine-readable receipt and verifies it with `doctor`.
 
 Existing unrelated files are never silently overwritten. A collision stops installation with the original file preserved.
@@ -37,6 +42,29 @@ Existing unrelated files are never silently overwritten. A collision stops insta
 ```
 
 Use `--home PATH` and `--root PATH` for an isolated install. Maintainers can use `--source-root PATH` to verify against local checkouts without changing the release pins.
+
+## First five minutes
+
+```bash
+siso-stack plan              # show every selected repository and exact commit
+siso-stack doctor            # verify pins, profiles, agents, skills, hooks, shims, and receipt
+siso-hooks doctor            # inspect the lifecycle-hook installation directly
+```
+
+The default install is the complete public stack. Use `--required-only` for the smallest supported core. The installer is idempotent for files it manages and stops on unrelated file collisions instead of overwriting them.
+
+## Update and rollback
+
+The distribution is the lockfile for the whole stack. Update it, inspect the new plan, and rerun the installer:
+
+```bash
+git pull --ff-only
+siso-stack plan
+./install.sh
+siso-stack doctor
+```
+
+To return to an earlier published stack, check out its release tag and rerun the same install and doctor commands. Component checkouts are detached at the exact commits recorded by that tag. The installer preserves unrelated host files and creates backups before changing an existing managed profile block.
 
 ## What is included
 
@@ -58,6 +86,15 @@ The exact repositories and commit pins are in `stack.manifest.json`.
 ## Explicit privacy boundary
 
 The distribution does not contain provider credentials, Bifrost keys, private network topology, personal memory or lessons, prompt/response bodies, raw transcripts, runtime databases, telemetry, caches, logs, client code, or private project repositories. It installs templates and source; each operator supplies their own accounts and secrets locally.
+
+## Extend the stack
+
+- Add or improve an atomic capability in the [Skills Hub](https://github.com/Lordsisodia/siso-skills-hub).
+- Compose multi-agent operating scenarios in the [Agent Playbook](https://github.com/Lordsisodia/siso-agent-playbook).
+- Add lifecycle policy and automation in [Agent Hooks](https://github.com/sisodias/siso-agent-hooks).
+- Propose a new distribution component only when it has an independent adoption, ownership, security, or release boundary.
+
+The Great Library records stable component identity and composition. This repository only pins and installs accepted public releases; it does not absorb their source or ownership.
 
 ## Verify
 
