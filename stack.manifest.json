@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "name": "siso-agent-stack",
+  "version": "0.1.0",
+  "description": "Portable Claude Code and Codex distribution composed from pinned public SISO Works.",
+  "requirements": {
+    "node": ">=20",
+    "git": ">=2.30",
+    "python": "optional; required by Python-backed component CLIs",
+    "herdr": "optional runtime binary; pinned source is always materialized"
+  },
+  "components": [
+    {
+      "id": "project-os",
+      "name": "SISO Project OS",
+      "repository": "https://github.com/sisodias/siso-project-os.git",
+      "revision": "d6290c609a6922e14b3faa27019aae31628686cb",
+      "license": "MIT",
+      "required": true,
+      "install": "commands",
+      "commands": { "siso-project-os": "bin/siso-project-os.mjs" }
+    },
+    {
+      "id": "runtime",
+      "name": "SISO Agent Runtime",
+      "repository": "https://github.com/Lordsisodia/siso-agent-runtime.git",
+      "revision": "a4aefc0345f979d67b5b3fac2829364a1a9100b9",
+      "license": "MIT",
+      "required": true,
+      "install": "commands",
+      "commands": { "siso-agent-runtime": "bin/siso-agent-runtime" }
+    },
+    {
+      "id": "agent-zero",
+      "name": "SISO Agent Zero",
+      "repository": "https://github.com/Lordsisodia/siso-agent-zero.git",
+      "revision": "dacfc6c30b2f478c9d3382910674bd30289d3981",
+      "license": "MIT",
+      "required": true,
+      "install": "commands",
+      "commands": { "siso-agent-zero": "bin/siso-agent-zero" }
+    },
+    {
+      "id": "agent-brain",
+      "name": "SISO Agent Brain",
+      "repository": "https://github.com/Lordsisodia/siso-agent-brain.git",
+      "revision": "ed50bec86f5cfb86cc5c84ebfce97fad595598b4",
+      "license": "MIT",
+      "required": false,
+      "install": "commands",
+      "commands": {
+        "siso-brain": "bin/siso-brain",
+        "siso-brain-server": "bin/siso-brain-server"
+      }
+    },
+    {
+      "id": "skills",
+      "name": "SISO Skills Hub",
+      "repository": "https://github.com/Lordsisodia/siso-skills-hub.git",
+      "revision": "d82cd4468fc5f6017a0d8d9d3827bae441fd11db",
+      "license": "MIT",
+      "required": true,
+      "install": "skills-registry",
+      "commands": { "siso-skills": "scripts/skills" }
+    },
+    {
+      "id": "playbook",
+      "name": "SISO Agent Playbook",
+      "repository": "https://github.com/Lordsisodia/siso-agent-playbook.git",
+      "revision": "1d4c2fae6207b928299279bde735e88578fad128",
+      "license": "MIT",
+      "required": true,
+      "install": "playbook",
+      "commands": {
+        "brief-lint": "bin/brief-lint",
+        "herdr-await": "bin/herdr-await",
+        "lane-health": "bin/lane-health",
+        "mini-headless": "bin/mini-headless",
+        "mini-task": "bin/mini-task",
+        "stack-check": "bin/stack-check"
+      }
+    },
+    {
+      "id": "session-intelligence",
+      "name": "SISO Session Intelligence",
+      "repository": "https://github.com/Lordsisodia/siso-session-intelligence.git",
+      "revision": "7f2ace6b9ba4b11dd95700cd4050ae5970a06171",
+      "license": "MIT",
+      "required": false,
+      "install": "commands",
+      "commands": { "siso-session-intelligence": "bin/siso-session-intelligence" }
+    },
+    {
+      "id": "integrations",
+      "name": "SISO Agent Integrations",
+      "repository": "https://github.com/Lordsisodia/siso-agent-integrations.git",
+      "revision": "808eb51c079db40ae273e721527b245be09e9544",
+      "license": "MIT",
+      "required": false,
+      "install": "source"
+    },
+    {
+      "id": "hooks",
+      "name": "SISO Agent Hooks",
+      "repository": "https://github.com/sisodias/siso-agent-hooks.git",
+      "revision": "5d12ed8e23e45989f63eaabde6d60048c0f4e7eb",
+      "license": "MIT",
+      "required": true,
+      "install": "hooks",
+      "commands": { "siso-hooks": "bin/siso-hooks.mjs" }
+    },
+    {
+      "id": "herdr",
+      "name": "Herdr",
+      "repository": "https://github.com/herdrdev/herdr.git",
+      "revision": "26a7bc860e4af516ef687d90b9f9dd2830f88d2a",
+      "license": "Apache-2.0",
+      "required": false,
+      "install": "external-source"
+    }
+  ],
+  "portable_surfaces": [
+    "Claude Code global instructions",
+    "Codex global AGENTS instructions",
+    "Claude and Codex skills",
+    "Claude and Codex agent definitions",
+    "Claude and Codex lifecycle hooks",
+    "playbooks and worker prompts",
+    "Agent Zero, Runtime, Project OS, Brain, Session Intelligence, and integration source",
+    "Herdr source and installation receipt",
+    "versioned doctor state"
+  ],
+  "excluded_state": [
+    "provider credentials and Bifrost virtual keys",
+    "private network topology and machine hostnames",
+    "personal memory, lessons, prompts, responses, and raw transcripts",
+    "runtime databases, telemetry, caches, logs, and generated checkpoints",
+    "client code and private project repositories",
+    "locally installed third-party plugins whose licenses require separate installation"
+  ]
+}
