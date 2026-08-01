@@ -59,12 +59,16 @@ function run(command, args, configuration = {}) {
   return result.stdout.trim();
 }
 
-function includedComponents() {
+function componentsForSelection(selection) {
   return manifest.components.filter((component) => {
-    if (options.requiredOnly && !component.required) return false;
-    if (options.noExternal && component.install === 'external-source') return false;
+    if (selection.requiredOnly && !component.required) return false;
+    if (selection.noExternal && component.install === 'external-source') return false;
     return true;
   });
+}
+
+function includedComponents() {
+  return componentsForSelection(options);
 }
 
 function repositoryPath(component) {
@@ -261,6 +265,11 @@ function install() {
     installed_at: new Date().toISOString(),
     home: targetHome,
     root: stackRoot,
+    selection: {
+      required_only: Boolean(options.requiredOnly),
+      no_external: Boolean(options.noExternal),
+      component_ids: components.map((component) => component.id)
+    },
     components: components.map(({ id, revision, repository }) => ({ id, revision, repository })),
     skill_count: skillCount,
     agent_count: agentCount,
@@ -284,11 +293,23 @@ function doctor() {
     if (receipt.root !== stackRoot) failures.push(`receipt root ${receipt.root} does not match ${stackRoot}`);
   }
   const componentById = new Map(manifest.components.map((component) => [component.id, component]));
-  const components = receipt
-    ? receipt.components.flatMap((record) => componentById.has(record.id) ? [componentById.get(record.id)] : [])
-    : includedComponents();
+  let components = includedComponents();
   if (receipt) {
-    for (const record of receipt.components) {
+    const selection = receipt.selection;
+    if (!selection || typeof selection.required_only !== 'boolean' || typeof selection.no_external !== 'boolean' || !Array.isArray(selection.component_ids)) {
+      failures.push('receipt selection is missing or invalid');
+    } else {
+      components = componentsForSelection({ requiredOnly: selection.required_only, noExternal: selection.no_external });
+      const expectedIds = components.map((component) => component.id);
+      if (JSON.stringify(selection.component_ids) !== JSON.stringify(expectedIds)) failures.push('receipt selection component_ids differ from manifest selection');
+    }
+    const records = Array.isArray(receipt.components) ? receipt.components : [];
+    if (!Array.isArray(receipt.components)) failures.push('receipt components must be an array');
+    const recordIds = records.map((record) => record.id);
+    const expectedIds = components.map((component) => component.id);
+    if (new Set(recordIds).size !== recordIds.length) failures.push('receipt component IDs are not unique');
+    if (JSON.stringify(recordIds) !== JSON.stringify(expectedIds)) failures.push('receipt component set differs from manifest selection');
+    for (const record of records) {
       const expected = componentById.get(record.id);
       if (!expected) failures.push(`receipt contains unknown component: ${record.id}`);
       else if (record.revision !== expected.revision || record.repository !== expected.repository) {
@@ -304,6 +325,8 @@ function doctor() {
     }
     const actual = spawnSync('git', ['-C', path, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim();
     if (actual !== component.revision) failures.push(`${component.id}: expected ${component.revision}, got ${actual || 'missing'}`);
+    const dirty = spawnSync('git', ['-C', path, 'status', '--porcelain'], { encoding: 'utf8' }).stdout.trim();
+    if (dirty) failures.push(`${component.id}: managed checkout is dirty`);
     for (const relative of Object.values(component.commands || {})) {
       if (!existsSync(join(path, relative))) failures.push(`${component.id}: missing command ${relative}`);
     }

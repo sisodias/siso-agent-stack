@@ -33,7 +33,7 @@ Existing unrelated files are never silently overwritten. A collision stops insta
 ./install.sh                    # full public stack, including optional components and Herdr source
 ./install.sh --required-only    # Project OS, Runtime, Agent Zero, Skills, Playbook, and Hooks
 ./install.sh --no-external      # omit external Herdr source
-./install.sh --dry-run          # print exact pins and destinations
+./install.sh --dry-run          # print selected component pins and clone destinations
 ```
 
 Use `--home PATH` and `--root PATH` for an isolated install. Maintainers can use `--source-root PATH` to verify against local checkouts without changing the release pins.

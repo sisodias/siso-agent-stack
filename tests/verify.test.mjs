@@ -18,3 +18,15 @@ test('privacy verifier scans every publishable file', () => {
     unlinkSync(fixture);
   }
 });
+
+test('privacy verifier rejects unexpected binary publishables', () => {
+  const fixture = join(root, 'unexpected.bin');
+  try {
+    writeFileSync(fixture, Buffer.from([0, 1, 2, 3]));
+    const result = spawnSync(process.execPath, [verifier], { cwd: root, encoding: 'utf8' });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /unexpected binary publishable/);
+  } finally {
+    unlinkSync(fixture);
+  }
+});

@@ -103,7 +103,7 @@
       "id": "hooks",
       "name": "SISO Agent Hooks",
       "repository": "https://github.com/sisodias/siso-agent-hooks.git",
-      "revision": "5d12ed8e23e45989f63eaabde6d60048c0f4e7eb",
+      "revision": "9125a972b4ba03661bf17ee135790282f246c15f",
       "license": "MIT",
       "required": true,
       "install": "hooks",
