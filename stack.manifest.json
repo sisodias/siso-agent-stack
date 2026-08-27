@@ -23,7 +23,7 @@
     {
       "id": "runtime",
       "name": "SISO Agent Runtime",
-      "repository": "https://github.com/Lordsisodia/siso-agent-runtime.git",
+      "repository": "https://github.com/sisodias/siso-agent-runtime.git",
       "revision": "a4aefc0345f979d67b5b3fac2829364a1a9100b9",
       "license": "MIT",
       "required": true,
@@ -33,7 +33,7 @@
     {
       "id": "agent-zero",
       "name": "SISO Agent Zero",
-      "repository": "https://github.com/Lordsisodia/siso-agent-zero.git",
+      "repository": "https://github.com/sisodias/siso-agent-zero.git",
       "revision": "dacfc6c30b2f478c9d3382910674bd30289d3981",
       "license": "MIT",
       "required": true,
@@ -43,7 +43,7 @@
     {
       "id": "agent-brain",
       "name": "SISO Agent Brain",
-      "repository": "https://github.com/Lordsisodia/siso-agent-brain.git",
+      "repository": "https://github.com/sisodias/siso-agent-brain.git",
       "revision": "ed50bec86f5cfb86cc5c84ebfce97fad595598b4",
       "license": "MIT",
       "required": false,
@@ -56,7 +56,7 @@
     {
       "id": "skills",
       "name": "SISO Skills Hub",
-      "repository": "https://github.com/Lordsisodia/siso-skills-hub.git",
+      "repository": "https://github.com/sisodias/siso-skills-hub.git",
       "revision": "d82cd4468fc5f6017a0d8d9d3827bae441fd11db",
       "license": "MIT",
       "required": true,
@@ -66,7 +66,7 @@
     {
       "id": "playbook",
       "name": "SISO Agent Playbook",
-      "repository": "https://github.com/Lordsisodia/siso-agent-playbook.git",
+      "repository": "https://github.com/sisodias/siso-agent-playbook-public.git",
       "revision": "1d4c2fae6207b928299279bde735e88578fad128",
       "license": "MIT",
       "required": true,
@@ -83,7 +83,7 @@
     {
       "id": "session-intelligence",
       "name": "SISO Session Intelligence",
-      "repository": "https://github.com/Lordsisodia/siso-session-intelligence.git",
+      "repository": "https://github.com/sisodias/siso-session-intelligence.git",
       "revision": "7f2ace6b9ba4b11dd95700cd4050ae5970a06171",
       "license": "MIT",
       "required": false,
@@ -93,7 +93,7 @@
     {
       "id": "integrations",
       "name": "SISO Agent Integrations",
-      "repository": "https://github.com/Lordsisodia/siso-agent-integrations.git",
+      "repository": "https://github.com/sisodias/siso-agent-integrations.git",
       "revision": "808eb51c079db40ae273e721527b245be09e9544",
       "license": "MIT",
       "required": false,
