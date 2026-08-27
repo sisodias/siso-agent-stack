@@ -89,8 +89,8 @@ The distribution does not contain provider credentials, Bifrost keys, private ne
 
 ## Extend the stack
 
-- Add or improve an atomic capability in the [Skills Hub](https://github.com/Lordsisodia/siso-skills-hub).
-- Compose multi-agent operating scenarios in the [Agent Playbook](https://github.com/Lordsisodia/siso-agent-playbook).
+- Add or improve an atomic capability in the [Skills Hub](https://github.com/sisodias/siso-skills-hub).
+- Compose multi-agent operating scenarios in the [Agent Playbook](https://github.com/sisodias/siso-agent-playbook-public).
 - Add lifecycle policy and automation in [Agent Hooks](https://github.com/sisodias/siso-agent-hooks).
 - Propose a new distribution component only when it has an independent adoption, ownership, security, or release boundary.
 
