@@ -1,5 +1,7 @@
 # Agent guide — SISO Agent Stack Distribution
 
+**In one line:** Umbrella installer pinning exact commits of the SISO skills, hooks, playbooks, profiles, runtime and coordination components into one reproducible setup. District: `SISO_Agents` (`~/SISO_Workspace/SISO_Agents/siso-agent-stack`).
+
 This repository is a version-pinned distribution, not the canonical source for its components.
 
 ## Sources of truth
